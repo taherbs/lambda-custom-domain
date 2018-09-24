@@ -1,0 +1,33 @@
+# serverless.yml
+
+service: serverless-http-custom-domain
+
+plugins:
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    hostedZoneId: ${file(./env-vars.yaml):hostedZoneId}
+    domainName: ${file(./env-vars.yaml):domainName}
+    certificateName: ${file(./env-vars.yaml):certificateName}
+    basePath: ${file(./env-vars.yaml):basePath}
+    stage: ${self:provider.stage}
+    createRoute53Record: ${file(./env-vars.yaml):createRoute53Record}
+
+provider:
+  name: aws
+  runtime: python3.6
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+  goodbye:
+    handler: handler.goodbye
+    events:
+      - http:
+          path: goodbye
+          method: get

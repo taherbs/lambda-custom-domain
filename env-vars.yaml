@@ -1,0 +1,5 @@
+hostedZoneId: Z************
+domainName: test-serverless.taherbs.theexperiment.net
+certificateName: '*.taherbs.theexperiment.net'
+basePath: ''
+createRoute53Record: true

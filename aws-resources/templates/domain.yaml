@@ -1,0 +1,35 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Hosted zone and certificate for the aws account
+
+Parameters:
+  ZoneName:
+    Description: Name of the zone
+    Type: String
+  CertName:
+    Description: Name of the certificate
+    Type: String
+
+Resources:
+  HostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: "Hosted zone for the suqad"
+      Name: !Ref ZoneName
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref CertName
+
+Outputs:
+  ZoneName:
+    Value: !Ref ZoneName
+  ZoneId:
+    Value: !Ref HostedZone
+  CertificateName:
+    Value: !Ref CertName
+  CertificateARN:
+    Value: !Ref Certificate
